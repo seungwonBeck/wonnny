@@ -84,8 +84,6 @@ function renderHome() {
   $("#process").innerHTML = P.process.map(t => `<li>${t}</li>`).join("");
   $("#bio").textContent = P.bio;
   $("#intro").textContent = P.intro;
-  $("#closing").textContent = P.closing;
-  $("#closing-body").textContent = P.closingBody;
 }
 
 function renderProject() {
@@ -108,7 +106,7 @@ function renderProject() {
     })()}</div></div><p class="lead">${p.summary}</p>${p.description ? `<p class="lead sub">${p.description}</p>` : ""}
       <dl class="facts">
         <div><dt>유형</dt><dd>${p.projectType}</dd></div><div><dt>기간</dt><dd>${p.period}</dd></div>
-        <div><dt>역할</dt><dd>${p.role}</dd></div>${p.tools.length ? `<div><dt>툴</dt><dd>${p.tools.join(", ")}</dd></div>` : ""}
+        <div><dt>역할</dt><dd>${p.role}</dd></div>${p.tools.length ? `<div><dt>툴</dt><dd>${p.tools.join(" · ")}</dd></div>` : ""}
         ${p.targetUsers ? `<div><dt>타깃 사용자</dt><dd>${p.targetUsers}</dd></div>` : ""}
       </dl>
       <div class="p-media shot">${thumb({ ...p, thumbnail: p.cover || p.thumbnail }).replace('class="media', 'data-zoom class="media')}</div></header>
@@ -223,6 +221,7 @@ function applyTheme(t) {
 }
 
 function init() {
+  if ($("#closing")) { $("#closing").textContent = P.closing; $("#closing-body").textContent = P.closingBody; }
   let saved = ""; try { saved = localStorage.theme || ""; } catch (e) {}
   applyTheme(saved);
   const tb = $("#theme");
@@ -258,5 +257,28 @@ function init() {
   reveal(); setInterval(reveal, 250);
 }
 
-document.body.dataset.page === "project" ? renderProject() : renderHome();
+const MAIL = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+const INSTA = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg>';
+function renderAbout() {
+  const A = window.ABOUT; document.title = `About — ${P.name}`;
+  const lvl = (n, c) => [1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? "on" : ""}"></i>`).join("");
+  $("#app").innerHTML = `
+    <div class="wrap"><a class="back" href="index.html">← Home</a></div>
+    <header class="wrap p-hero"><div class="p-title"><p class="eyebrow" style="margin:0">About · ${A.role}</p><div class="p-acts"><span class="otherlbl">다른 페이지 보기</span><a class="pbtn site" href="https://seungwonbeck.github.io/Portfolio2.0/" target="_blank" rel="noopener"><img src="assets/favicon-seungwon2.svg" width="20" height="20" alt="" style="border-radius:5px">seungwon.2<span aria-hidden="true">↗</span></a></div></div><h1 class="sr">About Me</h1></header>
+    <section class="wrap block rv ab"><h2>About Me</h2><div class="body">
+      <p class="quote">${A.statement.map(t => `<span>${t}</span>`).join("")}</p></div></section>
+    <section class="wrap block rv"><h2>Timeline</h2><div class="body"><ol class="tl">${A.timeline.map((t, i) => `<li style="--k:${i}"><b>${t.period}</b><h4>${t.title}</h4><p>${t.desc}</p></li>`).join("")}</ol></div></section>
+    <section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><h2>Skills</h2></div>
+      <div class="skills">${A.skills.map(g => `<div class="sk"><h3>${g.category}</h3>${g.items.map(it => `<div class="skrow"><span>${it.name}</span><em>LV.${it.level}</em></div><div class="lv" role="img" aria-label="LV ${it.level} / 5">${lvl(it.level)}</div>`).join("")}</div>`).join("")}</div></section>
+    <section class="wrap block rv"><h2>Contact</h2><div class="body"><div class="contact-list">
+      <button type="button" class="crow" data-email><i class="cic" style="--c:#1fb6e8">${MAIL}</i>Email<em>${P.email}<b aria-hidden="true">복사</b></em></button>
+      <a class="crow" href="https://www.behance.net/dc44a02a" target="_blank" rel="noopener"><i class="cic" style="--c:#1769ff"><span class="be">Bē</span></i>Behance<em>dc44a02a<b aria-hidden="true">↗</b></em></a>
+      <a class="crow" href="https://www.instagram.com/a.cc.2.0" target="_blank" rel="noopener"><i class="cic" style="--c:#e1306c">${INSTA}</i>Instagram<em>@a.cc.2.0<b aria-hidden="true">↗</b></em></a>
+    </div></div></section>`;
+  // 스크롤 중 화면 가운데에 걸친 타임라인 항목을 반전 강조
+  const items = [...document.querySelectorAll(".tl li")];
+  const mark = () => { const mid = innerHeight * .55; let best = null, d = 1e9; items.forEach(li => { const r = li.getBoundingClientRect(), c = (r.top + r.bottom) / 2, dd = Math.abs(c - mid); if (dd < d) { d = dd; best = li; } }); items.forEach(li => li.classList.toggle("act", li === best && d < innerHeight * .45)); };
+  addEventListener("scroll", mark, { passive: true }); addEventListener("resize", mark); mark();
+}
+({ project: renderProject, about: renderAbout }[document.body.dataset.page] || renderHome)();
 init();
