@@ -213,6 +213,13 @@ function heroCollage() {
 /* ---------- 공통 ---------- */
 const toast = msg => { const t = $(".toast"); t.textContent = msg; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1800); };
 
+const GMAIL = '<svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#4caf50" d="M45 16.2l-5 2.75-5 4.75V40h7c1.66 0 3-1.34 3-3V16.2z"/><path fill="#1e88e5" d="M3 16.2l3.614 1.71L13 23.7V40H6c-1.657 0-3-1.343-3-3V16.2z"/><polygon fill="#e53935" points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17"/><path fill="#c62828" d="M3 12.298V16.2l10 7.5V11.2L9.876 8.859C9.132 8.301 8.228 8 7.298 8 4.924 8 3 9.924 3 12.298z"/><path fill="#fbc02d" d="M45 12.298V16.2l-10 7.5V11.2l3.124-2.341C38.868 8.301 39.772 8 40.702 8 43.076 8 45 9.924 45 12.298z"/></svg>';
+const INSTA_L = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg>';
+const BTN_ICON = {
+  Behance: '<i class="bi" style="background:#1769ff"><span class="be">Bē</span></i>',
+  Instagram: `<i class="bi" style="background:linear-gradient(45deg,#f9a825,#e1306c,#7b2ff7)">${INSTA_L}</i>`,
+  "Portfolio 2.0": '<i class="bi lt"><img src="assets/favicon-seungwon2.svg" width="18" height="18" alt=""></i>'
+};
 function applyTheme(t) {
   document.documentElement.toggleAttribute("data-theme", false);
   if (t === "dark") document.documentElement.setAttribute("data-theme", "dark"); else document.documentElement.removeAttribute("data-theme");
@@ -227,11 +234,13 @@ function init() {
   const tb = $("#theme");
   if (tb) tb.addEventListener("click", () => { const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; applyTheme(next); try { localStorage.theme = next; } catch (e) {} });
   document.querySelectorAll("[data-email]").forEach(b => b.addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText(P.email); toast("이메일 주소를 복사했습니다"); }
-    catch { location.href = "mailto:" + P.email; }
+    // 1) 클립보드 API → 2) 임시 입력창 복사 → 3) 메일 앱 열기 순서로 시도
+    try { await navigator.clipboard.writeText(P.email); toast("이메일 주소를 복사했습니다"); return; } catch (e) {}
+    try { const t = document.createElement("textarea"); t.value = P.email; t.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(t); t.select(); const ok = document.execCommand("copy"); t.remove(); if (ok) { toast("이메일 주소를 복사했습니다"); return; } } catch (e) {}
+    location.href = "mailto:" + P.email;
   }));
-  document.querySelectorAll("[data-resume]").forEach(a => a.href = P.resumeUrl);
-  document.querySelectorAll("[data-links]").forEach(el => el.innerHTML = P.socialLinks.map(l => `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join(""));
+  document.querySelectorAll("[data-links]").forEach(el => el.innerHTML = P.socialLinks.map(l => `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${BTN_ICON[l.label] || ""}${l.label}</a>`).join(""));
+  document.querySelectorAll(".contact [data-email]").forEach(b => b.insertAdjacentHTML("afterbegin", `<i class="bi lt">${GMAIL}</i>`));
 
   // 이미지 확대: [data-zoom] 클릭 → dialog
   const dlg = $("dialog");
@@ -264,16 +273,17 @@ function renderAbout() {
   const lvl = (n, c) => [1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? "on" : ""}"></i>`).join("");
   $("#app").innerHTML = `
     <div class="wrap"><a class="back" href="index.html">← Home</a></div>
-    <header class="wrap p-hero"><div class="p-title"><p class="eyebrow" style="margin:0">About · ${A.role}</p><div class="p-acts"><span class="otherlbl">다른 페이지 보기</span><a class="pbtn site" href="https://seungwonbeck.github.io/Portfolio2.0/" target="_blank" rel="noopener"><img src="assets/favicon-seungwon2.svg" width="20" height="20" alt="" style="border-radius:5px">seungwon.2<span aria-hidden="true">↗</span></a></div></div><h1 class="sr">About Me</h1></header>
+    <header class="wrap p-hero"><div class="p-title ab-top"><p class="eyebrow" style="margin:0">About · ${A.role}</p><div class="p-acts"><span class="otherlbl">다른 페이지 보기</span><a class="pbtn site" href="https://seungwonbeck.github.io/Portfolio2.0/" target="_blank" rel="noopener"><img src="assets/favicon-seungwon2.svg" width="20" height="20" alt="" style="border-radius:5px">seungwon.2<span aria-hidden="true">↗</span></a></div></div><h1 class="sr">About Me</h1></header>
     <section class="wrap block rv ab"><h2>About Me</h2><div class="body">
       <p class="quote">${A.statement.map(t => `<span>${t}</span>`).join("")}</p></div></section>
     <section class="wrap block rv"><h2>Timeline</h2><div class="body"><ol class="tl">${A.timeline.map((t, i) => `<li style="--k:${i}"><b>${t.period}</b><h4>${t.title}</h4><p>${t.desc}</p></li>`).join("")}</ol></div></section>
     <section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><h2>Skills</h2></div>
       <div class="skills">${A.skills.map(g => `<div class="sk"><h3>${g.category}</h3>${g.items.map(it => `<div class="skrow"><span>${it.name}</span><em>LV.${it.level}</em></div><div class="lv" role="img" aria-label="LV ${it.level} / 5">${lvl(it.level)}</div>`).join("")}</div>`).join("")}</div></section>
     <section class="wrap block rv"><h2>Contact</h2><div class="body"><div class="contact-list">
-      <button type="button" class="crow" data-email><i class="cic" style="--c:#1fb6e8">${MAIL}</i>Email<em>${P.email}<b aria-hidden="true">복사</b></em></button>
+      <button type="button" class="crow" data-email><i class="cic light">${GMAIL}</i>Email<em>${P.email}<b aria-hidden="true">복사</b></em></button>
       <a class="crow" href="https://www.behance.net/dc44a02a" target="_blank" rel="noopener"><i class="cic" style="--c:#1769ff"><span class="be">Bē</span></i>Behance<em>dc44a02a<b aria-hidden="true">↗</b></em></a>
       <a class="crow" href="https://www.instagram.com/a.cc.2.0" target="_blank" rel="noopener"><i class="cic" style="--c:#e1306c">${INSTA}</i>Instagram<em>@a.cc.2.0<b aria-hidden="true">↗</b></em></a>
+      <a class="crow" href="https://seungwonbeck.github.io/Portfolio2.0/" target="_blank" rel="noopener"><i class="cic light"><img src="assets/favicon-seungwon2.svg" width="28" height="28" alt=""></i>Portfolio 2.0<em>seungwon.2<b aria-hidden="true">↗</b></em></a>
     </div></div></section>`;
   // 스크롤 중 화면 가운데에 걸친 타임라인 항목을 반전 강조
   const items = [...document.querySelectorAll(".tl li")];

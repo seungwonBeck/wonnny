@@ -27,7 +27,6 @@ window.DATA = {
       { label: "Instagram", url: "https://www.instagram.com/a.cc.2.0" },
       { label: "Portfolio 2.0", url: "https://seungwonbeck.github.io/Portfolio2.0/" }
     ],
-    resumeUrl: "assets/resume.pdf" // [작성] PDF를 이 경로에 넣어주세요
   },
   projects: [
  {

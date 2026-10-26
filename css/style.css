@@ -543,3 +543,14 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .crow em{margin-left:auto;display:flex;align-items:center;gap:10px;font-style:normal;font-weight:400;font-size:15px;color:var(--mute)}
 .crow em b{font-weight:700;color:var(--ink)}
 @media(max-width:480px){.crow{padding-right:16px;font-size:16px}.crow em{font-size:13px}.crow em span{display:none}}
+/* 버튼 앞 아이콘 */
+.btn .bi{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;margin:-4px 10px -4px -12px;border-radius:50%;color:#fff;font-style:normal}
+.btn .bi.lt{background:#fff}
+.btn .bi .be{font-weight:900;font-size:13px;letter-spacing:-.05em}
+.btn .bi img{border-radius:5px}
+.btn{align-items:center}
+.cic.light{background:#fff;border:1px solid var(--line)}
+.cic.light img{border-radius:6px}
+.ab-top{align-items:center}
+.ab-top .p-acts{margin-bottom:0;align-items:center}
+.ab-top .eyebrow{display:flex;align-items:center;font-size:15px}
