@@ -98,7 +98,14 @@ function renderProject() {
   const link = (u, t) => `<a class="btn blue" style="margin:0 8px 8px 0" href="${u}" target="_blank" rel="noopener">${t}</a>`;
   $("#app").innerHTML = `
     <div class="wrap"><a class="back" href="index.html#work">← Work</a></div>
-    <header class="wrap p-hero"><p class="eyebrow">${p.stage ? p.stage + " · " : ""}${p.category}</p><div class="p-title"><h1>${p.title}</h1>${(() => { const l = p.links.find(x => x.label === "실제 사이트"); return l ? `<a class="pbtn site" href="${l.url}" target="_blank" rel="noopener">사이트 바로가기<span aria-hidden="true">↗</span></a>` : ""; })()}</div><p class="lead">${p.summary}</p>${p.description ? `<p class="lead sub">${p.description}</p>` : ""}
+    <header class="wrap p-hero"><p class="eyebrow">${p.stage ? p.stage + " · " : ""}${p.category}</p><div class="p-title"><h1>${p.title}</h1><div class="p-acts">${(() => {
+      const out = [], one = p.links.filter(l => /PDF$/.test(l.label)).length === 1;
+      const site = p.links.find(x => x.label === "실제 사이트"), be = p.links.find(x => x.label === "Behance");
+      if (site) out.push(`<a class="pbtn site" href="${site.url}" target="_blank" rel="noopener">사이트 바로가기<span aria-hidden="true">↗</span></a>`);
+      if (be) out.push(`<a class="pbtn site" href="${be.url}" target="_blank" rel="noopener">Behance 바로가기<span aria-hidden="true">↗</span></a>`);
+      if (p.original) p.links.filter(l => /PDF$/.test(l.label)).forEach(l => { const n = one ? "" : l.label.replace(/\s*PDF$/, "") + " "; out.push(`<a class="pbtn outline" href="${l.url}" target="_blank" rel="noopener">${n}PDF 보기<span aria-hidden="true">↗</span></a><a class="pbtn" href="${l.url}" download>${n}PDF 다운로드<span aria-hidden="true">↓</span></a>`); });
+      return out.join("");
+    })()}</div></div><p class="lead">${p.summary}</p>${p.description ? `<p class="lead sub">${p.description}</p>` : ""}
       <dl class="facts">
         <div><dt>유형</dt><dd>${p.projectType}</dd></div><div><dt>기간</dt><dd>${p.period}</dd></div>
         <div><dt>역할</dt><dd>${p.role}</dd></div>${p.tools.length ? `<div><dt>툴</dt><dd>${p.tools.join(", ")}</dd></div>` : ""}
@@ -109,10 +116,12 @@ function renderProject() {
     ${blk("프로젝트 내용", p.sections.length && `<ol class="dec">${p.sections.map(d => `<li><h4>${d.title}</h4><p>${d.text}</p></li>`).join("")}</ol>`)}
     ${blk("작업 기여도", `<div class="own"><div class="own-top"><span class="own-badge"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>개인 작업</span><span class="own-pct">${p.contribution ?? 100}%</span></div><div class="bar" role="img" aria-label="기여도 ${p.contribution ?? 100}%"><i style="--v:${p.contribution ?? 100}%"></i></div><p>${p.role} 전 과정을 혼자 진행했습니다.</p></div>`)}
     <section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><h2>주요 디자인 화면</h2></div>
-      ${p.screens.map(s => `<figure class="shot ${(s.ratio || "").startsWith("9/") || (s.ratio || "").startsWith("3/") ? "tall" : ""}" data-zoom>${media(s)}${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</section>
+      ${p.original
+        ? `<div class="gal">${p.screens.map(s => `<figure class="shot" data-zoom>${media(s)}<span class="zoombtn" aria-hidden="true">크게 보기 ⤢</span>${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</div>`
+        : p.screens.map(s => `<figure class="shot ${(s.ratio || "").startsWith("9/") || (s.ratio || "").startsWith("3/") ? "tall" : ""}" data-zoom>${media(s)}${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</section>
     ${blk("새롭게 익힌 점과 남은 과제", (p.outcome || p.reflection) && `${p.outcome ? `<p>${p.outcome}</p>` : ""}${p.reflection ? `<p>${p.reflection}</p>` : ""}`)}
     ${blk("다음 프로젝트에 이어진 배움", p.carry && p.carry.split(/(?<=다\.)\s+/).map(t => `<p>${t}</p>`).join(""))}
-    ${blk("관련 링크", (() => { const rest = p.links.filter(l => l.label !== "실제 사이트"); return rest.length && rest.map(l => link(l.url, l.label)).join(""); })())}
+    ${blk("관련 링크", (() => { const rest = p.links.filter(l => l.label !== "실제 사이트" && l.label !== "Behance" && !(p.original && /PDF$/.test(l.label))); return rest.length && rest.map(l => link(l.url, l.label)).join(""); })())}
     <div class="wrap"><a class="nextp" href="project.html?p=${next.slug}"><small>Next project</small><strong>${next.title} →</strong></a></div>`;
 }
 

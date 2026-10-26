@@ -456,6 +456,7 @@ window.DATA = {
  {
   "id": 6,
   "slug": "card-news",
+  "original": true,
   "title": "CARD NEWS",
   "stage": "",
   "ability": "",
@@ -552,6 +553,7 @@ window.DATA = {
  {
   "id": 7,
   "slug": "promo-posts",
+  "original": true,
   "title": "SNS 배너",
   "stage": "",
   "ability": "",

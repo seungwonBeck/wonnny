@@ -473,3 +473,12 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .rv.in .bar i{width:var(--v)}
 .own p{color:var(--mute)}
 @media(prefers-reduced-motion:reduce){.bar i{width:var(--v);transition:none}}
+/* SNS(카드뉴스·배너): 원본 비율 카드로 나열, 크게 보기 버튼 */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,400px),1fr));gap:48px 32px;align-items:start}
+.gal .shot{position:relative;margin:0}
+.gal .shot .media{max-width:540px}
+.gal .shot figcaption{max-width:540px}
+.zoombtn{position:absolute;top:12px;left:12px;padding:8px 14px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;pointer-events:none;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.p-acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;margin-bottom:10px}
+.p-title .pbtn{margin-bottom:0}
+.own-pct{letter-spacing:.04em}
