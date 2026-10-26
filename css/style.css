@@ -482,3 +482,15 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .p-acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;margin-bottom:10px}
 .p-title .pbtn{margin-bottom:0}
 .own-pct{letter-spacing:.04em}
+.sec-p{margin:calc(-1 * clamp(16px,3vw,40px)) 0 clamp(32px,5vw,64px);max-width:44em;color:var(--mute);font-size:clamp(16px,1.4vw,19px)}
+/* 모바일: 습득 칩은 항상 한 줄, 넘치면 옆으로 밀어서 본다(접기 버튼 없음) */
+@media(max-width:480px){
+  .feat .learn,.feat .learn.open,.feat .learn.collapsed{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;gap:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .learn::-webkit-scrollbar{display:none}
+  .learn.collapsed .prior,.learn.open .prior{display:contents}
+  .learn .morebtn,.learn.collapsed .morebtn,.learn.open .morebtn{display:none}
+  .learn .chip,.learn .lh,.learn .plus{flex:none}
+  .learn .lh{font-size:16px;margin-right:2px}
+  .chip{font-size:13px;gap:6px;padding:4px 10px 4px 5px}
+  .ic{width:22px;height:22px;border-radius:6px}
+}
