@@ -557,3 +557,18 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 
 /* 메인 제목 자간 */
 .big,.t .tc{letter-spacing:.01em}
+/* 스크롤하면 헤더 뒤 내용이 흐려지는 유리 배경 */
+.hd{transition:background-color .3s,border-color .3s,backdrop-filter .3s}
+.hd .wrap{transition:padding .3s}
+.hd.scrolled{mix-blend-mode:normal;color:var(--ink);background:color-mix(in srgb,var(--bg) 68%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid color-mix(in srgb,var(--line) 80%,transparent)}
+.hd.scrolled .wrap{padding-bottom:14px}
+.hd.scrolled .nav a{background-image:linear-gradient(currentColor,currentColor)}
+.hd.scrolled .burger i{background:var(--ink)}
+/* 홈 About: 소개 문단은 위로 빼고 두 칸 제목 줄을 맞춤 */
+.about-bio{max-width:44em;margin-bottom:clamp(32px,4vw,56px)}
+.about{align-items:start}
+.about h3{margin-top:0}
+.tl li.act{background:none;color:inherit;padding-left:20px;padding-right:0;opacity:calc(1 - var(--k,0) * .2)}
+/* 분류 목록(All)의 윗선을 오른쪽 첫 사진의 윗선과 맞춤 */
+.work .feat:first-child{padding-top:0}
+.filter button:first-child{padding-top:0}

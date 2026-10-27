@@ -252,6 +252,9 @@ function init() {
   });
   dlg.addEventListener("click", () => dlg.close());
 
+  // 스크롤하면 헤더 뒤가 흐려지는 유리 느낌 배경
+  const hd = $(".hd"), hdf = () => hd.classList.toggle("scrolled", scrollY > 24);
+  addEventListener("scroll", hdf, { passive: true }); hdf();
   const top = $(".top");
   addEventListener("scroll", () => top.classList.toggle("on", scrollY > 600), { passive: true });
   top.addEventListener("click", () => scrollTo({ top: 0 }));
@@ -285,10 +288,7 @@ function renderAbout() {
       <a class="crow" href="https://www.instagram.com/a.cc.2.0" target="_blank" rel="noopener"><i class="cic" style="--c:#e1306c">${INSTA}</i>Instagram<em>@a.cc.2.0<b aria-hidden="true">↗</b></em></a>
       <a class="crow" href="https://seungwonbeck.github.io/Portfolio2.0/" target="_blank" rel="noopener"><i class="cic light"><img src="assets/favicon-seungwon2.svg" width="28" height="28" alt=""></i>Portfolio 2.0<em>seungwon.2<b aria-hidden="true">↗</b></em></a>
     </div></div></section>`;
-  // 스크롤 중 화면 가운데에 걸친 타임라인 항목을 반전 강조
-  const items = [...document.querySelectorAll(".tl li")];
-  const mark = () => { const mid = innerHeight * .55; let best = null, d = 1e9; items.forEach(li => { const r = li.getBoundingClientRect(), c = (r.top + r.bottom) / 2, dd = Math.abs(c - mid); if (dd < d) { d = dd; best = li; } }); items.forEach(li => li.classList.toggle("act", li === best && d < innerHeight * .45)); };
-  addEventListener("scroll", mark, { passive: true }); addEventListener("resize", mark); mark();
+  // 타임라인 반전은 마우스를 올렸을 때만(CSS :hover)
 }
 ({ project: renderProject, about: renderAbout }[document.body.dataset.page] || renderHome)();
 init();
