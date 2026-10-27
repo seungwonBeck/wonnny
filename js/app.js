@@ -109,7 +109,7 @@ function renderProject() {
         <div><dt>역할</dt><dd>${p.role}</dd></div>${p.tools.length ? `<div><dt>툴</dt><dd>${p.tools.join(" · ")}</dd></div>` : ""}
         ${p.targetUsers ? `<div><dt>타깃 사용자</dt><dd>${p.targetUsers}</dd></div>` : ""}
       </dl>
-      <div class="p-media shot">${thumb({ ...p, thumbnail: p.cover || p.thumbnail }).replace('class="media', 'data-zoom class="media')}</div></header>
+      <div class="p-media shot${p.cover ? "" : " small"}">${thumb({ ...p, thumbnail: p.cover || p.thumbnail }).replace('class="media', 'data-zoom class="media')}</div></header>
     ${blk("당시 해결하려 했던 과제", p.problem.length && `<ul>${p.problem.map(x => `<li><span class="tag ${x.type === "fact" ? "" : "h"}">${x.type === "fact" ? "관찰" : "가설"}</span>${x.text}</li>`).join("")}</ul>`)}
     ${blk("프로젝트 내용", p.sections.length && `<ol class="dec">${p.sections.map(d => `<li><h4>${d.title}</h4><p>${d.text}</p></li>`).join("")}</ol>`)}
     ${blk("작업 기여도", `<div class="own"><div class="own-top"><span class="own-badge"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>개인 작업</span><span class="own-pct">${p.contribution ?? 100}%</span></div><div class="bar" role="img" aria-label="기여도 ${p.contribution ?? 100}%"><i style="--v:${p.contribution ?? 100}%"></i></div><p>${p.role} 전 과정을 혼자 진행했습니다.</p></div>`)}

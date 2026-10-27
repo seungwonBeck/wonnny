@@ -588,3 +588,6 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 /* 모든 작품 상세: 카드 갤러리 + 크게 보기 (웹·UX 가로 화면은 2열) */
 .gal.wide{grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr))}
 .gal.wide .shot .media,.gal.wide .shot figcaption{max-width:none}
+/* 원본이 작은 배너(PDP·카드뉴스·SNS)는 늘리지 않고 원본에 가까운 크기로 가운데 */
+.p-media.small{max-width:1000px;margin-inline:auto}
+.p-media.small .media img{image-rendering:auto}
