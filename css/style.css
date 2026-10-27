@@ -554,3 +554,6 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .ab-top{align-items:center}
 .ab-top .p-acts{margin-bottom:0;align-items:center}
 .ab-top .eyebrow{display:flex;align-items:center;font-size:15px}
+
+/* 메인 제목 자간 */
+.big,.t .tc{letter-spacing:.01em}
