@@ -581,3 +581,7 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 /* 상세 정보 줄(유형·기간·역할·툴) 가운데 정렬 */
 .facts{text-align:center}
 .facts>div{display:flex;flex-direction:column;align-items:center}
+/* 정보 줄: 첫 칸은 왼쪽 끝, 마지막 칸은 오른쪽 끝에 붙고 사이는 고르게. 칸 안 글자는 가운데 */
+.facts{display:flex;justify-content:space-between;align-items:flex-start;gap:24px 32px;flex-wrap:wrap}
+.facts>div{flex:0 1 auto;max-width:100%}
+@media(max-width:480px){.facts{justify-content:space-between}.facts>div{flex:1 1 40%}}
