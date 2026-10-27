@@ -135,7 +135,7 @@ function pixelate(img, cv) {
     const bayer = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
       const i = (y * cols + x) * 4, ink = 1 - (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255;
-      if (ink > (bayer[(y % 4) * 4 + (x % 4)] + .5) / 16) { g.fillStyle = "#181818"; g.fillRect(x * cell + 1, y * cell + 1, cell - 2, cell - 2); }
+      if (ink > (bayer[(y % 4) * 4 + (x % 4)] + .5) / 16) { g.fillStyle = "#111111"; g.fillRect(x * cell + 1, y * cell + 1, cell - 2, cell - 2); }
     }
     cv.classList.add("on");
   } catch (e) { /* file:// 등 캔버스를 읽을 수 없으면 원본 그대로 */ }

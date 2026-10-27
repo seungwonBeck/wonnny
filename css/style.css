@@ -5,7 +5,7 @@
 @font-face{font-family:Paperlogy;font-weight:700;font-display:swap;src:url(../fonts/Paperlogy-7Bold.ttf) format("truetype")}
 @font-face{font-family:Paperlogy;font-weight:800;font-display:swap;src:url(../fonts/Paperlogy-8ExtraBold.ttf) format("truetype")}
 
-:root{--ink:#181818;--blue:#315BFF;--bg:#F7F7F2;--white:#fff;--line:#DEDED8;--mute:#6b6b66;--pad:80px}
+:root{--ink:#111111;--blue:#315BFF;--bg:#F7F7F2;--white:#fff;--line:#DEDED8;--mute:#6b6b66;--pad:80px}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{font:400 17px/1.6 Paperlogy,Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
@@ -155,7 +155,7 @@ dialog img{max-height:90vh;width:auto;margin:auto}
 .t .ph{transition:transform .5s}
 .t:hover .ph,.t:hover img{transform:scale(1.06)}
 .t:nth-child(3n) .ph{background:linear-gradient(135deg,#bcc8ff,#8fa4ff)}
-.t:nth-child(4n) .ph{background:linear-gradient(135deg,#2a2a2a,#181818);color:#bbb}
+.t:nth-child(4n) .ph{background:linear-gradient(135deg,#2a2a2a,#111111);color:#bbb}
 .spin{position:absolute;right:6%;top:58%;width:110px;fill:var(--ink);animation:rot 18s linear infinite;z-index:1;pointer-events:none}
 .spin text{font-size:10.5px;font-weight:600;letter-spacing:.06em}
 @keyframes rot{to{transform:rotate(360deg)}}
@@ -273,7 +273,7 @@ dialog img{max-height:90vh;width:auto;margin:auto}
 .t .tc{position:absolute;transform-origin:0 0;color:#fff;font-weight:800;line-height:1.08;letter-spacing:-.02em;white-space:nowrap;pointer-events:none;margin:0}
 .t .ph{background:linear-gradient(135deg,#8d8d87,#6e6e69);color:#f0f0ea}
 .t:nth-child(3n) .ph{background:linear-gradient(135deg,#5b78ff,#315BFF)}
-.t:nth-child(4n) .ph{background:linear-gradient(135deg,#2a2a2a,#181818)}
+.t:nth-child(4n) .ph{background:linear-gradient(135deg,#2a2a2a,#111111)}
 .filter button{padding-block:10px}
 .pf button{padding-block:6px}
 
@@ -299,7 +299,7 @@ dialog img{max-width:94vw}
 .chip.dim{opacity:.4}
 .plus{font-weight:700;color:var(--mute)}
 .ic{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;font-style:normal;font-size:11px;font-weight:800;color:#fff;background:var(--ink)}
-.ic.html{background:#e44d26}.ic.css{background:#1572b6}.ic.js{background:#f7df1e;color:#181818}.ic.next{background:#000;font-size:13px}
+.ic.html{background:#e44d26}.ic.css{background:#1572b6}.ic.js{background:#f7df1e;color:#111111}.ic.next{background:#000;font-size:13px}
 .ic.react{background:#20232a;color:#61dafb}.ic.figma{background:#fff;border:1px solid var(--line)}.ic.research{background:var(--blue)}
 .js .rv .chip{opacity:0;transform:translateY(8px) scale(.9);transition:opacity .45s,transform .45s}
 .js .rv.in .chip{opacity:1;transform:none;transition-delay:calc(.35s + var(--i) * .12s)}
@@ -572,3 +572,9 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 /* 분류 목록(All)의 윗선을 오른쪽 첫 사진의 윗선과 맞춤 */
 .work .feat:first-child{padding-top:0}
 .filter button:first-child{padding-top:0}
+/* 섹션 소개 문장: #111 한 줄 */
+.sec-p{max-width:none;color:var(--ink)}
+/* 섹션 제목: 대문자, 더 크게, 화면에 맞춰 줄어듦 */
+.sec-h h2{text-transform:uppercase;font-size:clamp(28px,4.6vw,68px);font-weight:900;letter-spacing:-.02em;line-height:1.05}
+@media(max-width:1024px){.sec-h h2{font-size:clamp(24px,4.5vw,46px)}}
+@media(max-width:480px){.sec-h h2{font-size:clamp(20px,6vw,26px);line-height:1.15}}
