@@ -133,11 +133,14 @@ function pixelate(img, cv) {
     const tc = t.getContext("2d"); tc.drawImage(img, 0, 0, cols, rows);
     const d = tc.getImageData(0, 0, cols, rows).data, g = cv.getContext("2d");
     const bayer = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
-    // 어두운 사진(YES24·STEELSERIES 등)은 반전: 어두운 배경이 비고 밝은 부분만 점이 되어 상자처럼 보이지 않는다.
-    let sum = 0; for (let i = 0; i < d.length; i += 4) sum += (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255;
-    const dark = sum / (d.length / 4) < .5;
+    // 배경 밝기(중앙값)를 기준으로 '배경과 다른 부분(특징)'에만 점을 찍는다.
+    // 어두운 배경(YES24·STEELSERIES)은 밝은 쪽이, 밝은 배경은 어두운 쪽이 특징이다.
+    const L = [], at = i => (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255;
+    for (let i = 0; i < d.length; i += 4) L.push(at(i));
+    const bg = [...L].sort((p, q) => p - q)[L.length >> 1], dark = bg < .5, dz = .1;
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      const i = (y * cols + x) * 4, lum = (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255, ink = dark ? lum : 1 - lum;
+      const lum = L[y * cols + x], diff = dark ? lum - bg : bg - lum;
+      const ink = Math.max(0, Math.min(1, (diff - dz) / (dark ? 1 - bg - dz : bg - dz) * 1.25));
       if (ink > (bayer[(y % 4) * 4 + (x % 4)] + .5) / 16) { g.fillStyle = "#111111"; g.fillRect(x * cell + 1, y * cell + 1, cell - 2, cell - 2); }
     }
     cv.classList.add("on");
