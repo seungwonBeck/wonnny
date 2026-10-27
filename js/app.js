@@ -142,7 +142,7 @@ function pixelate(img, cv) {
 }
 
 function heroCollage() {
-  $("#ghost").innerHTML = `<span>wonnny® Designer® </span>`.repeat(40);
+  $("#ghost").innerHTML = `<span>Seungwon Beck® Web Designer® </span>`.repeat(40);
   $("#lp").innerHTML = [...P.selfIntro, ...P.selfIntroEn].map(t => `<p>${t}</p>`).join("").repeat(2);
   const shots = [...sorted.map(p => ({ src: p.thumbnail, alt: p.title, slug: p.slug, banner: true }))];
   // 구(球) 위에 타일을 고르게 배치(피보나치 격자). 드래그하면 구가 회전한다.
