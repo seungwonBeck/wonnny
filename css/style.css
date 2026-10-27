@@ -603,3 +603,9 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .lbtn.next:hover{background:var(--blue);border-color:var(--blue);color:#fff}
 .lbtn.next:hover small{opacity:.9}
 .lbtn:not(.next){grid-column:auto}
+/* 태블릿·모바일: 분류(All Web UX/UI…)는 한 줄, 스크롤해도 헤더 아래에 붙어 있음 */
+@media(max-width:1024px){
+  .filter{position:sticky;top:49px;z-index:6;flex-direction:row;flex-wrap:nowrap;align-items:center;overflow-x:auto;gap:4px 14px;margin-inline:calc(var(--pad) * -1);padding:8px var(--pad);background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .filter::-webkit-scrollbar{display:none}
+  .filter button,.filter button:first-child{flex:none;font-size:clamp(14px,3.6vw,20px);padding:4px 0;white-space:nowrap}
+}
