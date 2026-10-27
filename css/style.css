@@ -591,3 +591,15 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 /* 원본이 작은 배너(PDP·카드뉴스·SNS)는 늘리지 않고 원본에 가까운 크기로 가운데 */
 .p-media.small{max-width:1000px;margin-inline:auto}
 .p-media.small .media img{image-rendering:auto}
+/* 관련 링크 + 다음 프로젝트: 제목 아래에 버튼을 가로로 고르게 */
+.linksec{padding-top:clamp(72px,11vw,160px);padding-bottom:clamp(48px,6vw,96px)}
+.lrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.lbtn{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 28px;border:1.5px solid var(--ink);border-radius:999px;font-weight:700;font-size:clamp(16px,1.3vw,20px);color:var(--ink);transition:background .2s,color .2s,border-color .2s}
+.lbtn:hover{background:var(--ink);color:var(--bg)}
+.lbtn span{transition:transform .2s}
+.lbtn:hover span{transform:translateX(3px)}
+.lbtn.next{background:var(--ink);color:var(--bg);flex-direction:row;gap:12px}
+.lbtn.next small{font-size:.7em;font-weight:500;opacity:.7}
+.lbtn.next:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.lbtn.next:hover small{opacity:.9}
+.lbtn:not(.next){grid-column:auto}

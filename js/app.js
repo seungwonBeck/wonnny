@@ -117,8 +117,10 @@ function renderProject() {
       <div class="gal ${p.original || p.category === "PDP" ? "" : "wide"}">${p.screens.map(s => `<figure class="shot" data-zoom>${media(s)}<span class="zoombtn" aria-hidden="true">크게 보기 ⤢</span>${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</div></section>
     ${blk("새롭게 익힌 점과 남은 과제", (p.outcome || p.reflection) && `${p.outcome ? `<p>${p.outcome}</p>` : ""}${p.reflection ? `<p>${p.reflection}</p>` : ""}`)}
     ${blk("다음 프로젝트에 이어진 배움", p.carry && p.carry.split(/(?<=다\.)\s+/).map(t => `<p>${t}</p>`).join(""))}
-    ${blk("관련 링크", (() => { const rest = p.links.filter(l => l.label !== "실제 사이트" && l.label !== "Behance" && !(p.original && /PDF$/.test(l.label))); return rest.length && rest.map(l => link(l.url, l.label)).join(""); })())}
-    <div class="wrap"><a class="nextp" href="project.html?p=${next.slug}"><small>Next project</small><strong>${next.title} →</strong></a></div>`;
+    ${(() => {
+      const rest = p.links.filter(l => l.label !== "실제 사이트" && l.label !== "Behance" && !(p.original && /PDF$/.test(l.label)));
+      return `<section class="wrap linksec rv"><div class="sec-h"><h2>${rest.length ? "관련 링크" : "다음 프로젝트"}</h2></div><div class="lrow">${rest.map(l => `<a class="lbtn" href="${l.url}" target="_blank" rel="noopener">${l.label}<span aria-hidden="true">↗</span></a>`).join("")}<a class="lbtn next" href="project.html?p=${next.slug}"><small>다음 프로젝트</small>${next.title}<span aria-hidden="true">→</span></a></div></section>`;
+    })()}`;
 }
 
 // 사진을 하프톤/디더 픽셀 이미지로 바꾼다. 올려 두면 원본이 보인다.
