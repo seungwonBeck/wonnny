@@ -578,3 +578,6 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .sec-h h2{text-transform:uppercase;font-size:clamp(28px,4.6vw,68px);font-weight:900;letter-spacing:-.02em;line-height:1.05}
 @media(max-width:1024px){.sec-h h2{font-size:clamp(24px,4.5vw,46px)}}
 @media(max-width:480px){.sec-h h2{font-size:clamp(20px,6vw,26px);line-height:1.15}}
+/* 상세 정보 줄(유형·기간·역할·툴) 가운데 정렬 */
+.facts{text-align:center}
+.facts>div{display:flex;flex-direction:column;align-items:center}
