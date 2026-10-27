@@ -133,8 +133,11 @@ function pixelate(img, cv) {
     const tc = t.getContext("2d"); tc.drawImage(img, 0, 0, cols, rows);
     const d = tc.getImageData(0, 0, cols, rows).data, g = cv.getContext("2d");
     const bayer = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+    // 어두운 사진(YES24·STEELSERIES 등)은 반전: 어두운 배경이 비고 밝은 부분만 점이 되어 상자처럼 보이지 않는다.
+    let sum = 0; for (let i = 0; i < d.length; i += 4) sum += (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255;
+    const dark = sum / (d.length / 4) < .5;
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      const i = (y * cols + x) * 4, ink = 1 - (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255;
+      const i = (y * cols + x) * 4, lum = (.299 * d[i] + .587 * d[i + 1] + .114 * d[i + 2]) / 255, ink = dark ? lum : 1 - lum;
       if (ink > (bayer[(y % 4) * 4 + (x % 4)] + .5) / 16) { g.fillStyle = "#111111"; g.fillRect(x * cell + 1, y * cell + 1, cell - 2, cell - 2); }
     }
     cv.classList.add("on");
