@@ -90,7 +90,7 @@ function renderProject() {
   const slug = new URLSearchParams(location.search).get("p");
   const i = sorted.findIndex(p => p.slug === slug);
   if (i < 0) { $("#app").innerHTML = `<div class="wrap"><a class="back" href="index.html#work">← Work</a><p>프로젝트를 찾을 수 없습니다.</p></div>`; return; }
-  const p = sorted[i], next = sorted[(i + 1) % sorted.length];
+  const p = sorted[i], next = sorted[(i + 1) % sorted.length], web = !(p.original || p.category === "PDP");
   document.title = `${p.title} — ${P.name}`;
   const blk = (h, body) => body ? `<section class="wrap block rv"><h2>${h}</h2><div class="body">${body}</div></section>` : "";
   const link = (u, t) => `<a class="btn blue" style="margin:0 8px 8px 0" href="${u}" target="_blank" rel="noopener">${t}</a>`;
@@ -109,12 +109,12 @@ function renderProject() {
         <div><dt>역할</dt><dd>${p.role}</dd></div>${p.tools.length ? `<div><dt>툴</dt><dd>${p.tools.join(" · ")}</dd></div>` : ""}
         ${p.targetUsers ? `<div><dt>타깃 사용자</dt><dd>${p.targetUsers}</dd></div>` : ""}
       </dl>
-      <div class="p-media shot${p.cover ? "" : " small"}">${thumb({ ...p, thumbnail: p.cover || p.thumbnail }).replace('class="media', 'data-zoom class="media')}</div></header>
+      <div class="p-media shot${p.cover ? "" : " small"}">${web ? thumb({ ...p, thumbnail: p.cover || p.thumbnail }) : thumb({ ...p, thumbnail: p.cover || p.thumbnail }).replace('class="media', 'data-zoom class="media')}</div></header>
     ${blk("당시 해결하려 했던 과제", p.problem.length && `<ul>${p.problem.map(x => `<li><span class="tag ${x.type === "fact" ? "" : "h"}">${x.type === "fact" ? "관찰" : "가설"}</span>${x.text}</li>`).join("")}</ul>`)}
     ${blk("프로젝트 내용", p.sections.length && `<ol class="dec">${p.sections.map(d => `<li><h4>${d.title}</h4><p>${d.text}</p></li>`).join("")}</ol>`)}
     ${blk("작업 기여도", `<div class="own"><div class="own-top"><span class="own-badge"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>개인 작업</span><span class="own-pct">${p.contribution ?? 100}%</span></div><div class="bar" role="img" aria-label="기여도 ${p.contribution ?? 100}%"><i style="--v:${p.contribution ?? 100}%"></i></div><p>${p.role} 전 과정을 혼자 진행했습니다.</p></div>`)}
     <section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><h2>주요 디자인 화면</h2></div>
-      <div class="gal ${p.original || p.category === "PDP" ? "" : "wide"}">${p.screens.map(s => `<figure class="shot" data-zoom>${media(s)}<span class="zoombtn" aria-hidden="true">크게 보기 ⤢</span>${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</div></section>
+      <div class="gal ${web ? "wide" : ""}">${p.screens.map(s => `<figure class="shot"${web ? "" : " data-zoom"}>${media(s)}${web ? "" : `<span class="zoombtn" aria-hidden="true">크게 보기 ⤢</span>`}${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</div></section>
     ${blk("새롭게 익힌 점과 남은 과제", (p.outcome || p.reflection) && `${p.outcome ? `<p>${p.outcome}</p>` : ""}${p.reflection ? `<p>${p.reflection}</p>` : ""}`)}
     ${blk("다음 프로젝트에 이어진 배움", p.carry && p.carry.split(/(?<=다\.)\s+/).map(t => `<p>${t}</p>`).join(""))}
     ${(() => {

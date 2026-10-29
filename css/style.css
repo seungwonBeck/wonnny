@@ -609,3 +609,5 @@ html[data-theme=dark] .pill .i-sun{display:inline}
   .filter::-webkit-scrollbar{display:none}
   .filter button,.filter button:first-child{flex:none;font-size:clamp(14px,3.6vw,20px);padding:4px 0;white-space:nowrap}
 }
+/* 웹 작품은 확대 없음: 확대 커서 제거 */
+.gal.wide .shot .media,.p-media .media{cursor:default}
