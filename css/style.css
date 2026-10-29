@@ -611,3 +611,5 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 }
 /* 웹 작품은 확대 없음: 확대 커서 제거 */
 .gal.wide .shot .media,.p-media .media{cursor:default}
+/* 상세 페이지 제목 자간 */
+.p-hero h1,.p-title h1{letter-spacing:.01em}
