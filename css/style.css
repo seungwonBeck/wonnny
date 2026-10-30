@@ -613,3 +613,18 @@ html[data-theme=dark] .pill .i-sun{display:inline}
 .gal.wide .shot .media,.p-media .media{cursor:default}
 /* 상세 페이지 제목 자간 */
 .p-hero h1,.p-title h1{letter-spacing:.01em}
+/* 긴 상세페이지 결과물: 폭 고정으로 세로로 이어 붙임 (GIF 포함) */
+.dpieces{max-width:860px;margin-inline:auto}
+.dpieces img{display:block;width:100%;height:auto;filter:none}
+/* 정지 이미지로 받은 띠 문구를 옆으로 흐르게(원본 GIF의 효과를 코드로 재현) */
+.mq-wrap{position:relative;container-type:inline-size}
+.mq{position:absolute;left:0;right:0;overflow:hidden;background:#4fb5ee}
+.mq.top{top:0;height:8.85%}
+.mq.bot{top:90.2%;height:9.2%}
+.mq .track{display:flex;align-items:center;height:100%;width:max-content;animation:mqmove 18s linear infinite}
+.mq span{font-size:5.4cqw;font-weight:800;color:#fff;white-space:nowrap;letter-spacing:.01em;padding-right:.35em}
+.mq i{font-style:normal;color:#ffd62e;margin:0 .1em}
+@keyframes mqmove{to{transform:translateX(-50%)}}
+.dpieces video{display:block;width:100%;height:auto;background:#fff}
+/* 영상 아래 녹화 때 생긴 검은 줄을 다음 이미지가 덮도록 */
+.dpieces video{margin-bottom:-10px}

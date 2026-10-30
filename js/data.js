@@ -277,6 +277,7 @@ window.DATA = {
  {
   "id": 4,
   "slug": "steelseries-pdp",
+  "layout": "detail",
   "title": "STEELSERIES PDP",
   "stage": "",
   "ability": "",
@@ -359,11 +360,12 @@ window.DATA = {
    }
   ],
   "featured": false,
-  "sortOrder": 4
+  "sortOrder": 5
  },
  {
   "id": 5,
   "slug": "fatboy-pdp",
+  "layout": "detail",
   "title": "FATBOY PDP",
   "stage": "",
   "ability": "",
@@ -451,7 +453,7 @@ window.DATA = {
    }
   ],
   "featured": false,
-  "sortOrder": 5
+  "sortOrder": 6
  },
  {
   "id": 6,
@@ -548,7 +550,7 @@ window.DATA = {
    }
   ],
   "featured": false,
-  "sortOrder": 6
+  "sortOrder": 7
  },
  {
   "id": 7,
@@ -621,7 +623,101 @@ window.DATA = {
    }
   ],
   "featured": false,
-  "sortOrder": 7
+  "sortOrder": 8
+ },
+{
+ "id": 8,
+ "slug": "whiff-pdp",
+ "layout": "detail",
+ "title": "WHIFF PDP",
+ "stage": "",
+ "ability": "",
+ "carry": "",
+ "summary": "식물 유래 탈취제 Whiff의 상세 페이지",
+ "description": "베스트셀러 강조와 오로지 탈취만을 생각한다는 메시지로 제품의 차별점이 먼저 읽히게 구성했습니다.",
+ "category": "PDP",
+ "projectType": "상세 페이지 디자인",
+ "period": "",
+ "role": "상세 페이지 디자인",
+ "tools": [],
+ "thumbnail": "assets/projects/whiff-pdp/banner.webp",
+ "targetUsers": "",
+ "problem": [],
+ "sections": [],
+ "screens": [
+ {
+  "src": "assets/projects/whiff-pdp/w01.webp",
+  "alt": "Whiff 상세 페이지 1",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w02.webp",
+  "alt": "Whiff 상세 페이지 2",
+  "caption": "",
+  "video": "assets/projects/whiff-pdp/w02.mp4"
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w03.gif",
+  "alt": "Whiff 상세 페이지 3 (움직이는 이미지)",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w05.webp",
+  "alt": "Whiff 상세 페이지 5",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w06.webp",
+  "alt": "Whiff 상세 페이지 6",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w07.webp",
+  "alt": "Whiff 상세 페이지 7",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w08.webp",
+  "alt": "Whiff 상세 페이지 8",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w09.webp",
+  "alt": "Whiff 상세 페이지 9",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w10.webp",
+  "alt": "Whiff 상세 페이지 10",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w11.webp",
+  "alt": "Whiff 상세 페이지 11",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w12.webp",
+  "alt": "Whiff 상세 페이지 12",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w13.webp",
+  "alt": "Whiff 상세 페이지 13",
+  "caption": ""
+ },
+ {
+  "src": "assets/projects/whiff-pdp/w04.webp",
+  "alt": "Whiff 상세 페이지 4",
+  "caption": ""
  }
+],
+ "outcome": "",
+ "reflection": "",
+ "references": [],
+ "links": [],
+ "featured": false,
+ "sortOrder": 4
+}
 ]
 };

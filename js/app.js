@@ -105,7 +105,7 @@ function renderProject() {
       return out.join("");
     })()}</div></div><p class="lead">${p.summary}</p>${p.description ? `<p class="lead sub">${p.description}</p>` : ""}
       <dl class="facts">
-        <div><dt>유형</dt><dd>${p.projectType}</dd></div><div><dt>기간</dt><dd>${p.period}</dd></div>
+        <div><dt>유형</dt><dd>${p.projectType}</dd></div>${p.period ? `<div><dt>기간</dt><dd>${p.period}</dd></div>` : ""}
         <div><dt>역할</dt><dd>${p.role}</dd></div>${p.tools.length ? `<div><dt>툴</dt><dd>${p.tools.join(" · ")}</dd></div>` : ""}
         ${p.targetUsers ? `<div><dt>타깃 사용자</dt><dd>${p.targetUsers}</dd></div>` : ""}
       </dl>
@@ -113,8 +113,10 @@ function renderProject() {
     ${blk("당시 해결하려 했던 과제", p.problem.length && `<ul>${p.problem.map(x => `<li><span class="tag ${x.type === "fact" ? "" : "h"}">${x.type === "fact" ? "관찰" : "가설"}</span>${x.text}</li>`).join("")}</ul>`)}
     ${blk("프로젝트 내용", p.sections.length && `<ol class="dec">${p.sections.map(d => `<li><h4>${d.title}</h4><p>${d.text}</p></li>`).join("")}</ol>`)}
     ${blk("작업 기여도", `<div class="own"><div class="own-top"><span class="own-badge"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg>개인 작업</span><span class="own-pct">${p.contribution ?? 100}%</span></div><div class="bar" role="img" aria-label="기여도 ${p.contribution ?? 100}%"><i style="--v:${p.contribution ?? 100}%"></i></div><p>${p.role} 전 과정을 혼자 진행했습니다.</p></div>`)}
-    <section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><h2>주요 디자인 화면</h2></div>
-      <div class="gal ${web ? "wide" : ""}">${p.screens.map(s => `<figure class="shot"${web ? "" : " data-zoom"}>${media(s)}${web ? "" : `<span class="zoombtn" aria-hidden="true">크게 보기 ⤢</span>`}${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</div></section>
+    ${p.layout === "detail" ? `<section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><p class="eyebrow" style="margin:0 0 8px">FINAL DESIGN</p><h2>상세페이지 결과물</h2></div><div class="dpieces">${p.screens.map(s => s.video
+        ? `<video class="dvideo" src="${s.video}" poster="${s.src}" autoplay loop muted playsinline preload="auto" aria-label="${s.alt || ""}"></video>`
+        : `<img src="${s.src}" alt="${s.alt || ""}" loading="lazy">`).join("")}</div></section>` : `<section class="wrap rv" style="padding-top:clamp(72px,11vw,160px)"><div class="sec-h"><h2>주요 디자인 화면</h2></div>
+      <div class="gal ${web ? "wide" : ""}">${p.screens.map(s => `<figure class="shot"${web ? "" : " data-zoom"}>${media(s)}${web ? "" : `<span class="zoombtn" aria-hidden="true">크게 보기 ⤢</span>`}${s.caption ? `<figcaption>${s.caption}</figcaption>` : ""}</figure>`).join("")}</div></section>`}
     ${blk("새롭게 익힌 점과 남은 과제", (p.outcome || p.reflection) && `${p.outcome ? `<p>${p.outcome}</p>` : ""}${p.reflection ? `<p>${p.reflection}</p>` : ""}`)}
     ${blk("다음 프로젝트에 이어진 배움", p.carry && p.carry.split(/(?<=다\.)\s+/).map(t => `<p>${t}</p>`).join(""))}
     ${(() => {
