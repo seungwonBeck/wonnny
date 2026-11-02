@@ -237,7 +237,9 @@ function applyTheme(t) {
 
 function init() {
   if ($("#closing")) { $("#closing").textContent = P.closing; $("#closing-body").textContent = P.closingBody; }
+  // 저장된 선택이 없으면 휴대폰은 주간, 그 밖의 웹은 야간이 기본
   let saved = ""; try { saved = localStorage.theme || ""; } catch (e) {}
+  if (!saved) saved = /Android.*Mobile|iPhone|iPod|Windows Phone/i.test(navigator.userAgent) ? "light" : "dark";
   applyTheme(saved);
   const tb = $("#theme");
   if (tb) tb.addEventListener("click", () => { const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; applyTheme(next); try { localStorage.theme = next; } catch (e) {} });
