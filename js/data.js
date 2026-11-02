@@ -419,7 +419,7 @@ window.DATA = {
     "caption": ""
    },
    {
-    "src": "assets/projects/fatboy-pdp/f07.webp",
+    "src": "assets/projects/fatboy-pdp/f07.webp?v=2",
     "alt": "FATBOY PDP f07",
     "caption": ""
    },
