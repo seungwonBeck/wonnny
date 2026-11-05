@@ -203,7 +203,7 @@ function heroCollage() {
   const DY = .0008, DP = .0005;
   const tick = () => { if (!last) { yaw += vy; pitch += vp; if (!still) { vy += (DY - vy) * .03; vp += (DP - vp) * .03; } else { vy *= .94; vp *= .94; } paint(); } requestAnimationFrame(tick); };
   vy = still ? 0 : DY; vp = still ? 0 : DP;
-  hero.addEventListener("pointerdown", e => { if (e.target.closest(".btn,.panel,.popen")) return; last = { x: e.clientX, y: e.clientY }; moved = 0; vy = vp = 0; hero.classList.add("grab"); });
+  hero.addEventListener("pointerdown", e => { moved = 0; if (e.target.closest(".btn,.panel,.popen")) return; last = { x: e.clientX, y: e.clientY }; vy = vp = 0; hero.classList.add("grab"); });
   addEventListener("pointermove", e => {
     if (!last) return;
     const dx = e.clientX - last.x, dy = e.clientY - last.y;
@@ -212,7 +212,8 @@ function heroCollage() {
   });
   const up = () => { if (!last) return; last = null; hero.classList.remove("grab");  };
   addEventListener("pointerup", up); addEventListener("pointercancel", up);
-  hero.addEventListener("click", e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+  // 사진을 끌고 난 뒤의 클릭만 막는다(패널의 링크·버튼은 항상 동작)
+  hero.addEventListener("click", e => { if (moved > 6 && !e.target.closest(".panel,.popen,.btn")) { e.preventDefault(); e.stopPropagation(); } }, true);
   addEventListener("resize", () => { measure(); paint(); });
   measure(); tick();
   document.fonts && document.fonts.ready.then(measure);
